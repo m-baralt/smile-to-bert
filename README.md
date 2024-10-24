@@ -17,7 +17,7 @@ This repository contains the code and data used for training the models and repr
 1. Install Python3 if required.
 2. Git clone this repository:
 ```
-git clone
+git clone https://github.com/m-baralt/smile-to-bert.git
 ```
 3. (Optional) Create a conda environment and activate it
 4. Install the required python libraries using:
