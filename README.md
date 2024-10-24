@@ -16,14 +16,14 @@ This repository contains the code and data used for training the models and repr
 
 1. Install Python3 if required.
 2. Git clone this repository:
-  ```
-   git clone
-  ```
+```
+git clone
+```
 3. (Optional) Create a conda environment and activate it
 4. Install the required python libraries using:
-   ```
-   pip3 install -r requirements.txt
-   ```
+```
+pip3 install -r requirements.txt
+```
 
 ## Pre-trained model
 
