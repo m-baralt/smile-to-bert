@@ -27,7 +27,12 @@ pip3 install -r requirements.txt
 
 ## Pre-trained model
 
-In order to
+In order to use the pre-trained models, the weights need to be downloaded using the `download_ckpt.sh` file. This should create a directory named checkpoints with all the weights from the pre-trained models. 
+To load the weights, the following code needs to be executed:
+
+```
+
+```
 
 ## Properties prediction
 
