@@ -106,7 +106,7 @@ tokens.extend(padding)
 tokens = torch.tensor(tokens)
 ```
 
-For the SmilesPE tokenizer, the SMILES strings neet to be converted to a tokens sequence using the following lines of code:
+For the SmilesPE tokenizer, the SMILES strings need to be converted to a tokens sequence using the following lines of code:
 
 ```
 import codecs
@@ -122,7 +122,16 @@ tokens.extend(padding)
 tokens = torch.tensor(tokens)
 ```
 
-## Properties prediction
+## Properties prediction and integrated gradients
+
+The Integrated_gradients_plot.py file allows an easy prediction of physicochemical properties from one SMILES string, and it generates a plot from the integrated gradients algorithm from Captum for the atom-level Smile-to-Bert.
+
+To execute the code, the following code is required:
+
+```
+python3 Integrated_gradients_plot.py "C(C1C(C(C(C(O1)O)O)O)O)O" --print_properties --figure_path=results/your_smiles_gradients.png
+
+```
 
 ## Embeddings
 
