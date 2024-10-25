@@ -28,9 +28,15 @@ pip3 install -r requirements.txt
 ## Pre-trained model
 
 In order to use the pre-trained models, the weights need to be downloaded using the `download_ckpt.sh` file. This should create a directory named checkpoints with all the weights from the pre-trained models. 
-To use the atom-level Smile-to-Bert, the following code needs to be executed:
+To load the weights of the atom-level Smile-to-Bert, the following code needs to be executed:
 
 ```
+import os
+from transformers import BertTokenizer
+from accelerate import Accelerator
+sys.path.append(os.getcwd())
+from Model.BERT import BERT, SMILESLM
+
 tokenizer = BertTokenizer("data/atomlevel_tokenizer/vocab.txt")
 device = "cuda"
 d_model = 90
@@ -49,6 +55,71 @@ smiles_model.to(device)
 
 smiles_model = accelerator.prepare(smiles_model)
 accelerator.load_state(input_dir = "checkpoints/atomlevel_ckp/")
+```
+
+To use this model, SMILES strings need to be converted to token sequences using the atom-level tokenizer from deepchem. To do so, the following code is required:
+
+```
+SMI_REGEX_PATTERN = r"""(\[[^\]]+]|Br?|Cl?|N|O|S|P|F|I|b|c|n|o|s|p|\(|\)|\.|=|#|-|\+|\\|\/|:|~|@|\?|>>?|\*|\$|\%[0-9]{2}|[0-9])"""
+
+class BasicSmilesTokenizer(object):
+    """
+    Run basic SMILES tokenization using a regex pattern developed by Schwaller et. al.
+    This tokenizer is to be used when a tokenizer that does not require the transformers library by HuggingFace is required.
+
+    Examples
+    --------
+    >>> from deepchem.feat.smiles_tokenizer import BasicSmilesTokenizer
+    >>> tokenizer = BasicSmilesTokenizer()
+    >>> print(tokenizer.tokenize("CC(=O)OC1=CC=CC=C1C(=O)O"))
+    ['C', 'C', '(', '=', 'O', ')', 'O', 'C', '1', '=', 'C', 'C', '=', 'C', 'C', '=', 'C', '1', 'C', '(', '=', 'O', ')', 'O']
+
+
+    References
+    ----------
+    .. [1] Philippe Schwaller, Teodoro Laino, Théophile Gaudin, Peter Bolgar, Christopher A. Hunter, Costas Bekas, and Alpha A. Lee
+        ACS Central Science 2019 5 (9): Molecular Transformer: A Model for Uncertainty-Calibrated Chemical Reaction Prediction
+        1572-1583 DOI: 10.1021/acscentsci.9b00576
+    """
+
+    def __init__(self, regex_pattern: str = SMI_REGEX_PATTERN):
+        """Constructs a BasicSMILESTokenizer.
+
+        Parameters
+        ----------
+        regex: string
+            SMILES token regex
+        """
+        self.regex_pattern = regex_pattern
+        self.regex = re.compile(self.regex_pattern)
+
+    def tokenize(self, text):
+        """Basic Tokenization of a SMILES.
+        """
+        tokens = [token for token in self.regex.findall(text)]
+        return tokens
+
+basictokenizer = BasicSmilesTokenizer(SMI_REGEX_PATTERN)
+tokens = tokenizer.encode(basictokenizer.tokenize(smiles))[0:-1]
+padding = [tokenizer.encode('[PAD]')[1] for _ in range(seq_length - len(tokens))]
+tokens.extend(padding)
+tokens = torch.tensor(tokens)
+```
+
+For the SmilesPE tokenizer, the SMILES strings neet to be converted to a tokens sequence using the following lines of code:
+
+```
+import codecs
+from SmilesPE.tokenizer import SPE_Tokenizer
+
+spe_vob = codecs.open('data/spe_tokenizer/SPE_ChEMBL.txt')
+spe = SPE_Tokenizer(spe_vob)
+spe_tokenizer = BertTokenizer("data/spe_tokenizer/vocab_spe.txt")
+
+tokens = tokenizer.encode(spe.tokenize(smiles).split(' '))[0:-1]
+padding = [tokenizer.encode('[PAD]')[1] for _ in range(seq_length - len(tokens))]
+tokens.extend(padding)
+tokens = torch.tensor(tokens)
 ```
 
 ## Properties prediction
