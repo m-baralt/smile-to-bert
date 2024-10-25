@@ -32,6 +32,7 @@ To load the weights of the atom-level Smile-to-Bert, the following code needs to
 
 ```
 import os
+import sys
 from transformers import BertTokenizer
 from accelerate import Accelerator
 sys.path.append(os.getcwd())
