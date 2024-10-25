@@ -28,10 +28,27 @@ pip3 install -r requirements.txt
 ## Pre-trained model
 
 In order to use the pre-trained models, the weights need to be downloaded using the `download_ckpt.sh` file. This should create a directory named checkpoints with all the weights from the pre-trained models. 
-To load the weights, the following code needs to be executed:
+To use the atom-level Smile-to-Bert, the following code needs to be executed:
 
 ```
+tokenizer = BertTokenizer("data/atomlevel_tokenizer/vocab.txt")
+device = "cuda"
+d_model = 90
+n_layers = 4
+heads = 6
+dropout = 0.1
+seq_length = 384
 
+accelerator = Accelerator()
+# Model configuration
+vocab_size = len(tokenizer.vocab)
+bert_model = BERT(vocab_size = vocab_size, d_model=d_model, n_layers=n_layers, heads=heads,
+                  dropout=dropout, seq_len = seq_length, device = device)
+smiles_model = SMILESLM(bert_model = bert_model)
+smiles_model.to(device)
+
+smiles_model = accelerator.prepare(smiles_model)
+accelerator.load_state(input_dir = "checkpoints/atomlevel_ckp/")
 ```
 
 ## Properties prediction
