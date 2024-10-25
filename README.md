@@ -124,15 +124,28 @@ tokens = torch.tensor(tokens)
 
 ## Properties prediction and integrated gradients
 
-The Integrated_gradients_plot.py file allows an easy prediction of physicochemical properties from one SMILES string, and it generates a plot from the integrated gradients algorithm from Captum for the atom-level Smile-to-Bert.
-
-To execute the code, the following code is required:
+The ```Integrated_gradients_plot.py``` file allows an easy prediction of physicochemical properties from one SMILES string, and it generates a plot from the integrated gradients algorithm from Captum for the atom-level Smile-to-Bert:
 
 ```
 python3 Integrated_gradients_plot.py "C(C1C(C(C(C(O1)O)O)O)O)O" --print_properties --figure_path=results/your_smiles_gradients.png
-
 ```
 
 ## Embeddings
 
+The ```embedding_viz.py``` file allows the generation of SMILES embeddings from a txt file with SMILES strings. Additionally, the PCAs of the embeddings are visualised:
+
+```
+python3 embedding_viz.py --data_path=/data/smiles_string.txt --figure_path=results/
+```
+
 ## Training model
+
+To train the atom-level and the SmilesPE Smile-to-Bert, the files ```Training_atomlevel.py``` and ```Training_spe.py``` can be used respectively. 
+The training and validation data can be downloaded executing the ```download_atomlevel_data.sh``` and/or ```download_spe_data.sh``` files.
+
+## Binding affinity prediction
+
+Finally, the file ```BERT_transfer_results.py``` can be used to run all the experiments related to binding affinity prediction. The datasets can be downloaded using the ```download_experiments.sh```file. 
+
+
+
