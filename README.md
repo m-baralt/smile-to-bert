@@ -19,10 +19,14 @@ This repository contains the code and data used for training the models and repr
 ```
 git clone https://github.com/m-baralt/smile-to-bert.git
 ```
-3. (Optional) Create a conda environment and activate it
-4. Install the required python libraries using:
+3. (Optional but recommended) Create a conda environment and activate it:
 ```
-pip3 install -r requirements.txt
+conda create --name smiletobert python=3.11.5
+conda activate smiletobert
+```
+5. Install the required python libraries using:
+```
+python3 -m pip install -r requirements.txt
 ```
 
 ## Pre-trained model
