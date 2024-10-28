@@ -31,7 +31,12 @@ python3 -m pip install -r requirements.txt
 
 ## Pre-trained model
 
-In order to use the pre-trained models, the weights need to be downloaded using the `download_ckpt.sh` file. This should create a directory named checkpoints with all the weights from the pre-trained models. 
+In order to use the pre-trained models, the weights need to be downloaded using the `download_ckpt.sh` file. To download data using .sh files, the following commands neet to be run:
+```
+chmod +x download_ckpt.sh
+./download_ckpt.sh
+```
+This should create a directory named checkpoints with all the weights from the pre-trained models. 
 To load the weights of the atom-level Smile-to-Bert, the following code needs to be executed:
 
 ```
