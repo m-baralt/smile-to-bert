@@ -70,6 +70,9 @@ accelerator.load_state(input_dir = "checkpoints/atomlevel_ckp/")
 To use this model, SMILES strings need to be converted to token sequences using the atom-level tokenizer from deepchem. To do so, the following code is required:
 
 ```
+import re
+import torch
+
 SMI_REGEX_PATTERN = r"""(\[[^\]]+]|Br?|Cl?|N|O|S|P|F|I|b|c|n|o|s|p|\(|\)|\.|=|#|-|\+|\\|\/|:|~|@|\?|>>?|\*|\$|\%[0-9]{2}|[0-9])"""
 
 class BasicSmilesTokenizer(object):
@@ -109,6 +112,7 @@ class BasicSmilesTokenizer(object):
         tokens = [token for token in self.regex.findall(text)]
         return tokens
 
+smiles = "C(C1C(C(C(C(O1)O)O)O)O)O"
 basictokenizer = BasicSmilesTokenizer(SMI_REGEX_PATTERN)
 tokens = tokenizer.encode(basictokenizer.tokenize(smiles))[0:-1]
 padding = [tokenizer.encode('[PAD]')[1] for _ in range(seq_length - len(tokens))]
