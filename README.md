@@ -138,9 +138,10 @@ tokens = torch.tensor(tokens)
 
 ## Properties prediction and integrated gradients
 
-The ```Integrated_gradients_plot.py``` file allows an easy prediction of physicochemical properties from one SMILES string, and it generates a plot from the integrated gradients algorithm from Captum for the atom-level Smile-to-Bert:
+The ```Integrated_gradients_plot.py``` file allows an easy prediction of physicochemical properties from one SMILES string, and it generates a plot from the integrated gradients algorithm from Captum for the atom-level Smile-to-Bert. Please, make sure that the directory specified in ```figure_path``` exists:
 
 ```
+mkdir results
 python3 Integrated_gradients_plot.py "C(C1C(C(C(C(O1)O)O)O)O)O" --print_properties --figure_path=results/your_smiles_gradients.png
 ```
 
