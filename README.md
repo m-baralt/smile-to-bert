@@ -139,6 +139,7 @@ tokens = torch.tensor(tokens)
 ## Properties prediction and integrated gradients
 
 The ```Integrated_gradients_plot.py``` file allows an easy prediction of physicochemical properties from one SMILES string, and it generates a plot from the integrated gradients algorithm from Captum for the atom-level Smile-to-Bert. Please, make sure that the directory specified in ```figure_path``` exists:
+For both the integrated gradients and the embedding visualization, checkpoints of the models are required (use ```download_ckpt.sh``` if you have not performed the previous steps).
 
 ```
 mkdir results
@@ -150,7 +151,7 @@ python3 Integrated_gradients_plot.py "C(C1C(C(C(C(O1)O)O)O)O)O" --print_properti
 The ```embedding_viz.py``` file allows the generation of SMILES embeddings from a txt file with SMILES strings. Additionally, the PCAs of the embeddings are visualised. An example of a file with SMILES strings can be downloaded using ```download_smiles.sh```. This should create a directory named smiles with the smiles_string.txt file.
 
 ```
-python3 embedding_viz.py --data_path=/smiles/smiles_string.txt --figure_path=results/
+python3 embedding_viz.py --data_path=smiles/smiles_string.txt --results_path=results/
 ```
 
 ## Training model
