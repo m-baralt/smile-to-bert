@@ -89,9 +89,7 @@ class BERTEmbedding(torch.nn.Module):
         self.embed_size = embed_size
         # (m, seq_len) --> (m, seq_len, embed_size)
         # padding_idx is not updated during training, remains as fixed pad (0)
-        print('Before embedding')
         self.token = torch.nn.Embedding(vocab_size, embed_size, padding_idx=0).to(device)
-        print('After embedding')
         self.position = PositionalEmbedding(d_model=embed_size, max_len=seq_len, device = device)
         self.dropout = torch.nn.Dropout(p=dropout)
        
