@@ -147,10 +147,10 @@ python3 Integrated_gradients_plot.py "C(C1C(C(C(C(O1)O)O)O)O)O" --print_properti
 
 ## Embeddings
 
-The ```embedding_viz.py``` file allows the generation of SMILES embeddings from a txt file with SMILES strings. Additionally, the PCAs of the embeddings are visualised:
+The ```embedding_viz.py``` file allows the generation of SMILES embeddings from a txt file with SMILES strings. Additionally, the PCAs of the embeddings are visualised. An example of a file with SMILES strings can be downloaded using ```download_smiles.sh```. This should create a directory named smiles with the smiles_string.txt file.
 
 ```
-python3 embedding_viz.py --data_path=/data/smiles_string.txt --figure_path=results/
+python3 embedding_viz.py --data_path=/smiles/smiles_string.txt --figure_path=results/
 ```
 
 ## Training model
