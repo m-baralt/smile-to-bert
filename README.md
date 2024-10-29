@@ -161,3 +161,4 @@ The training and validation data can be downloaded executing the ```download_ato
 ## Binding affinity prediction
 
 Finally, the file ```BERT_transfer_results.py``` can be used to run all the experiments related to binding affinity prediction. The datasets can be downloaded using the ```download_experiments.sh```file. 
+
