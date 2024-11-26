@@ -12,7 +12,7 @@ Additionally, we evaluated the utility of the generated embeddings in a binding 
 
 This repository contains the code and data used for training the models and reproducing the results presented in the paper.
 
-The paper is available as a preprint in: https://www.biorxiv.org/content/10.1101/2024.10.31.621293v1
+The paper is available as a preprint at https://www.biorxiv.org/content/10.1101/2024.10.31.621293v1.
 
 ## Installation
 
