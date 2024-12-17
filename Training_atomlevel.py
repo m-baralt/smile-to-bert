@@ -43,14 +43,14 @@ class SMILESDataset(Dataset):
 
     def __getitem__(self, item):
 	file = f'data_atomlevel/data_tensors/tensor_files/{os.path.basename(str(self.files_index[item][0], encoding="utf-8"))}'
-        idx = int(str(self.files_index[item][1], encoding='utf-8'))
-        smiles_tensor = np.load(file)
-        smiles = torch.tensor(smiles_tensor[idx][0:self.seq_len]).type(torch.LongTensor)
-        #smiles = smiles[0:self.seq_len]
-        properties = self.properties_tensor[item]
-        properties = ((properties-self.median)/(self.Q3-self.Q1))*100
+ 	idx = int(str(self.files_index[item][1], encoding='utf-8'))
+	smiles_tensor = np.load(file)
+	smiles = torch.tensor(smiles_tensor[idx][0:self.seq_len]).type(torch.LongTensor)
+	#smiles = smiles[0:self.seq_len]
+	properties = self.properties_tensor[item]
+	properties = ((properties-self.median)/(self.Q3-self.Q1))*100
 
-        return smiles, properties
+	return smiles, properties
 
 def set_seed(seed: int = 42) -> None:
     np.random.seed(seed)
