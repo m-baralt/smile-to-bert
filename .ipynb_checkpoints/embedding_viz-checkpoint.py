@@ -130,11 +130,21 @@ train_loader, testset, train_size, median = prepare_data(data = data, tokenizer 
 test_loader = DataLoader(dataset = testset, shuffle=False, batch_size=1, num_workers=10)
 
 # Model configuration
+d_model = 512
+n_layers = 4
+heads = 8
+dropout = 0.1
+deq_length = 100
+
+accelerator = Accelerator()
+# Model configuration
 vocab_size = len(smiles_tokenizer.vocab)
-bert_model = BERT(vocab_size=vocab_size, d_model=512, n_layers=4, heads=8, 
-                  dropout=0.1, seq_len=100, device=device)
-bert_model.load_state_dict(torch.load("ckpts/ckpt_descriptors.pt",
-                                      weights_only=True))
+bert_model = BERT(vocab_size = vocab_size, d_model=d_model, n_layers=n_layers, heads=heads,
+                  dropout=dropout, seq_len = seq_length, device = device)
+smiles_model = SMILESLM(bert_model = bert_model, output = 113)
+
+smiles_model = accelerator.prepare(smiles_model)
+accelerator.load_state(input_dir = "ckpts/checkpoint_19/")
 
 bert_model.to(device)
 
