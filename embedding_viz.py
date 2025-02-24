@@ -15,7 +15,7 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import BertTokenizer
 import torch.nn.functional as F
 sys.path.append(os.getcwd())
-from Model.BERT import BERT
+from Model.BERT import BERT, SMILESLM
 import pandas as pd
 import codecs
 from SmilesPE.tokenizer import SPE_Tokenizer
@@ -123,7 +123,7 @@ chosen_descriptors = data.columns[1:]
 
 print(f"Number of predicted molecular descriptors: {len(chosen_descriptors)}")
 
-train_loader, testset, train_size, median = prepare_data(data = data, tokenizer = smiles_tokenizer, spe = spe,
+train_dataloader, testset, train_len  = prepare_data(data = data, tokenizer = smiles_tokenizer, spe = spe,
                                                                  batch_size = 1, seq_len = 100, 
                                                                  train_perc = 0.98, num_workers = 10, seed = 2)
 
@@ -134,7 +134,7 @@ d_model = 512
 n_layers = 4
 heads = 8
 dropout = 0.1
-deq_length = 100
+seq_length = 100
 
 accelerator = Accelerator()
 # Model configuration
